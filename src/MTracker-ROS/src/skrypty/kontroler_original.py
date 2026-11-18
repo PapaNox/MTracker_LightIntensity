@@ -32,10 +32,25 @@ def f_kreska(epsilon1, epsilon2, epsilon3, alpha):
     ])
     return f_kreska
 
-
 #F zwykłe to jest to zwykłe f = h*f_kreska
-
 # ALfa prim to jest dodatkowa zmienna stanu wirtualna mm i jest na sprzężeniu zwrotnym i wchodzi na u z kreską, alfa jest całkowana
+
+def Ad_X_waypoint(g):
+    x, y, theta = _as_vec3(g, "g")
+
+    c = np.cos(theta)
+    s = np.sin(theta)
+
+    return np.array([
+        [c, y, s],
+        [0.0, 1.0, 0.0],
+        [-s, x, c]
+    ])
+
+
+def Ad_X(g):
+    return _S_BASIS @ Ad_X_waypoint(g) @ _S_BASIS.T
+
 
 #Stałe 
 
